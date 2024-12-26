@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Link, Routes, Route } from "react-router-dom";
 import "./App.css";
-import SignUp from "./components/auth/signup.js"; // SignUp 컴포넌트 임포트
+import SignUp from "./components/auth/signup.js";
+import Login from "./components/auth/login.js";
+
 
 function HomePage() {
   return (
@@ -124,6 +126,7 @@ function App() {
           <Route path="/matrix" element={<MatrixPage />} />
           <Route path="/mypage" element={<MypagePage />} />
           <Route path="/signup" element={<SignUp />} />
+          <Route path="/login" element={<Login />} /> 
         </Routes>
         <footer className="p-2 border-t border-gray-300 dark:border-gray-600 text-center text-xs mt-auto">
         © 2024 VIS Investment. All rights reserved.
