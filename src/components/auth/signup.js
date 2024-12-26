@@ -36,26 +36,26 @@ function SignUp() {
   };
 
   return (
-<div className="flex justify-center items-center h-[80vh] bg-white dark:bg-black text-black dark:text-white px-6">
-<div className="w-full max-w-4xl bg-white dark:bg-black py-6 px-10 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
-        <h1 className="text-3xl font-bold mb-8 text-center text-black dark:text-white">
-          회원가입
+  <div className="flex justify-center items-center h-[calc(100vh-70px)] bg-white dark:bg-black text-black dark:text-white px-4 mt-[-30px]">
+    <div className="w-full max-w-lg bg-white dark:bg-black py-4 px-6 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
+        <h1 className="text-2xl font-bold mb-6 text-center text-black dark:text-white">
+          Sign Up
         </h1>
-        <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-8">
+        <form onSubmit={handleSubmit} className="space-y-4">
           {/* 이메일 */}
           <div>
             <label
               htmlFor="email"
-              className="block text-black dark:text-white font-semibold"
+              className="block text-black dark:text-white font-semibold mb-1"
             >
-              이메일
+              Email
             </label>
             <input
               type="email"
               id="email"
               name="email"
               required
-              className="w-full p-3 border border-gray-300 dark:border-gray-700 bg-white dark:bg-black rounded-md text-black dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full p-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-black rounded-md text-black dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
               placeholder="example@example.com"
             />
           </div>
@@ -64,17 +64,17 @@ function SignUp() {
           <div>
             <label
               htmlFor="nickname"
-              className="block text-black dark:text-white font-semibold"
+              className="block text-black dark:text-white font-semibold mb-1"
             >
-              닉네임
+              Nickname
             </label>
             <input
               type="text"
               id="nickname"
               name="nickname"
               required
-              className="w-full p-3 border border-gray-300 dark:border-gray-700 bg-white dark:bg-black rounded-md text-black dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="닉네임을 입력하세요"
+              className="w-full p-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-black rounded-md text-black dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter your nickname"
             />
           </div>
 
@@ -82,9 +82,9 @@ function SignUp() {
           <div>
             <label
               htmlFor="password"
-              className="block text-black dark:text-white font-semibold"
+              className="block text-black dark:text-white font-semibold mb-1"
             >
-              비밀번호
+              Password
             </label>
             <input
               type="password"
@@ -95,15 +95,15 @@ function SignUp() {
               maxLength={20}
               value={password}
               onChange={handlePasswordChange}
-              className="w-full p-3 border border-gray-300 dark:border-gray-700 bg-white dark:bg-black rounded-md text-black dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="비밀번호를 입력하세요"
+              className="w-full p-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-black rounded-md text-black dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Enter your password"
             />
-            <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-              8~20자로, 숫자, 알파벳, 특수문자(!@#$%^&*()_.=+~-) 각각 최소 하나씩을 포함해주세요.
+            <p className="text-xs text-gray-500 dark:text-gray-400 mt-1">
+              Include 8-20 characters, a letter, a number, and a special character (!@#$%^&*()_.=+~-).
             </p>
             {passwordValidationError && (
-              <p className="text-sm text-red-500 mt-1">
-                비밀번호가 조건에 맞지 않습니다.
+              <p className="text-xs text-red-500 mt-1">
+                The password does not meet the requirements.
               </p>
             )}
           </div>
@@ -112,9 +112,9 @@ function SignUp() {
           <div>
             <label
               htmlFor="confirm-password"
-              className="block text-black dark:text-white font-semibold"
+              className="block text-black dark:text-white font-semibold mb-1"
             >
-              비밀번호 확인
+              Password Check
             </label>
             <input
               type="password"
@@ -123,28 +123,30 @@ function SignUp() {
               required
               value={confirmPassword}
               onChange={handleConfirmPassword}
-              className="w-full p-3 border border-gray-300 dark:border-gray-700 bg-white dark:bg-black rounded-md text-black dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
-              placeholder="비밀번호를 다시 입력하세요"
+              className="w-full p-2 border border-gray-300 dark:border-gray-700 bg-white dark:bg-black rounded-md text-black dark:text-white placeholder-gray-400 dark:placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Confirm your password"
             />
             {passwordError && (
-              <p className="text-sm text-red-500 mt-1">
-                입력하셨던 비밀번호와 다릅니다.
+              <p className="text-xs text-red-500 mt-1">
+                The passwords do not match.
               </p>
             )}
           </div>
 
           {/* 회원가입 버튼 */}
-          <div className="col-span-2">
+          <div>
             <button
               type="submit"
-              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              className="w-full bg-blue-600 hover:bg-blue-700 text-white py-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              회원가입
+              Sign Up
             </button>
           </div>
         </form>
       </div>
-    </div>
+  </div>
+
+  
   );
 }
 
