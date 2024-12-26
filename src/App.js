@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { Link, Routes, Route } from "react-router-dom";
 import "./App.css";
+import SignUp from "./components/auth/signup.js"; // SignUp 컴포넌트 임포트
 
-// 예시 페이지 컴포넌트들
 function HomePage() {
   return (
     <div className="p-8">
@@ -40,9 +40,6 @@ function MypagePage() {
 }
 
 function App() {
-  // -------------------------------
-  // 1) localStorage로 다크 모드 상태 저장/불러오기
-  // -------------------------------
   const storedDarkMode = localStorage.getItem("darkMode");
   const initialDarkMode = storedDarkMode === "true";
   const [isDarkMode, setIsDarkMode] = useState(initialDarkMode);
@@ -51,24 +48,17 @@ function App() {
     localStorage.setItem("darkMode", isDarkMode.toString());
   }, [isDarkMode]);
 
-  // 다크 모드 토글
   const toggleDarkMode = () => {
     setIsDarkMode((prev) => !prev);
   };
 
   return (
-    // isDarkMode 상태에 따라 Tailwind 다크 모드를 위한 "dark" 클래스를 루트에 부여
     <div className={isDarkMode ? "dark" : ""}>
       <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white flex flex-col">
-        
-        {/* -----------------------------
-          2) 헤더(탭 메뉴) 영역 
-        ----------------------------- */}
-        <header className="border-b border-gray-300 dark:border-gray-600">
+        <header className="sticky top-0 z-50 border-b border-gray-300 dark:border-gray-600 bg-white dark:bg-black">
           <nav className="flex items-center justify-between px-8 py-2">
-            {/* 왼쪽: 로고 + 메뉴들 */}
+            {/* 로고 및 탭 */}
             <div className="flex items-center space-x-8">
-              {/* 로고 클릭 시 Home("/")으로 이동 */}
               <Link to="/">
                 <img
                   src="/images/vis-logo.png"
@@ -76,8 +66,6 @@ function App() {
                   className="h-16"
                 />
               </Link>
-
-              {/* 탭 메뉴들: SPA 라우팅 - 새로고침 없이 이동 */}
               <Link
                 to="/introduce"
                 className="hover:text-gray-500 dark:hover:text-gray-300 font-normal"
@@ -98,24 +86,24 @@ function App() {
               </Link>
             </div>
 
-            {/* 오른쪽: 로그인 / 회원가입 + 다크 모드 토글 */}
+            {/* 로그인, 회원가입, 다크 모드 토글 */}
             <div className="flex items-center space-x-4">
-              <button className="bg-transparent border border-gray-500 hover:bg-gray-200 dark:hover:bg-gray-800 text-sm px-4 py-2 rounded">
+              <Link
+                to="/login"
+                className="bg-transparent border border-gray-500 hover:bg-gray-200 dark:hover:bg-gray-800 text-sm px-4 py-2 rounded"
+              >
                 Log in
-              </button>
-              <button className="bg-transparent border border-gray-500 hover:bg-gray-200 dark:hover:bg-gray-800 text-sm px-4 py-2 rounded">
+              </Link>
+              <Link
+                to="/signup"
+                className="bg-transparent border border-gray-500 hover:bg-gray-200 dark:hover:bg-gray-800 text-sm px-4 py-2 rounded"
+              >
                 Sign up
-              </button>
+              </Link>
 
-              {/* 다크 모드 토글 버튼 */}
               <button
                 onClick={toggleDarkMode}
-                className="
-                  flex items-center px-3 py-2 rounded 
-                  bg-white dark:bg-black 
-                  text-black dark:text-white 
-                  hover:bg-gray-200 dark:hover:bg-gray-800
-                "
+                className="flex items-center px-3 py-2 rounded bg-white dark:bg-black text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-800"
               >
                 <img
                   src={
@@ -130,25 +118,19 @@ function App() {
             </div>
           </nav>
         </header>
-
-        {/* --------------------------------
-          3) 메인 영역: 라우트 내용 표시
-        -------------------------------- */}
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/introduce" element={<IntroducePage />} />
           <Route path="/matrix" element={<MatrixPage />} />
           <Route path="/mypage" element={<MypagePage />} />
+          <Route path="/signup" element={<SignUp />} />
         </Routes>
-
-        {/* -----------------------------
-          4) 푸터 영역
-        ----------------------------- */}
         <footer className="p-4 border-t border-gray-300 dark:border-gray-600 text-center text-sm mt-auto">
           © 2024 VIS Investment. All rights reserved.
         </footer>
       </div>
     </div>
+
   );
 }
 
