@@ -63,25 +63,25 @@ function App() {
                 <img
                   src="/images/vis-logo.png"
                   alt="VIS Investment Logo"
-                  className="h-16"
+                  className="h-12"
                 />
               </Link>
               <Link
                 to="/introduce"
-                className="hover:text-gray-500 dark:hover:text-gray-300 font-normal"
-              >
+                className="hover:text-gray-500 dark:hover:text-gray-300 font-normal text-sm px-3 py-1"
+                >
                 Introduce
               </Link>
               <Link
                 to="/matrix"
-                className="hover:text-gray-500 dark:hover:text-gray-300 font-normal"
-              >
+                className="hover:text-gray-500 dark:hover:text-gray-300 font-normal text-sm px-3 py-1"
+                >
                 Matrix
               </Link>
               <Link
                 to="/mypage"
-                className="hover:text-gray-500 dark:hover:text-gray-300 font-normal"
-              >
+                className="hover:text-gray-500 dark:hover:text-gray-300 font-normal text-sm px-3 py-1"
+                >
                 Mypage
               </Link>
             </div>
@@ -90,13 +90,13 @@ function App() {
             <div className="flex items-center space-x-4">
               <Link
                 to="/login"
-                className="bg-transparent border border-gray-500 hover:bg-gray-200 dark:hover:bg-gray-800 text-sm px-4 py-2 rounded"
+                  className="bg-transparent border border-gray-500 hover:bg-gray-200 dark:hover:bg-gray-800 text-sm px-3 py-1 rounded"
               >
                 Log in
               </Link>
               <Link
                 to="/signup"
-                className="bg-transparent border border-gray-500 hover:bg-gray-200 dark:hover:bg-gray-800 text-sm px-4 py-2 rounded"
+                  className="bg-transparent border border-gray-500 hover:bg-gray-200 dark:hover:bg-gray-800 text-sm px-3 py-1 rounded"
               >
                 Sign up
               </Link>
@@ -125,8 +125,8 @@ function App() {
           <Route path="/mypage" element={<MypagePage />} />
           <Route path="/signup" element={<SignUp />} />
         </Routes>
-        <footer className="p-4 border-t border-gray-300 dark:border-gray-600 text-center text-sm mt-auto">
-          © 2024 VIS Investment. All rights reserved.
+        <footer className="p-2 border-t border-gray-300 dark:border-gray-600 text-center text-xs mt-auto">
+        © 2024 VIS Investment. All rights reserved.
         </footer>
       </div>
     </div>
