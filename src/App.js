@@ -1,21 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { Link, Routes, Route, useNavigate } from "react-router-dom";
+import { Link, Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import "./App.css";
 import SignUp from "./components/auth/Signup.js";
 import Login from "./components/auth/Login.js";
 import HomePage from "./components/introduce/HomePage.js";
 import IntroducePage from "./components/introduce/IntroducePage";
 import Matrix01Page from "./components/matrix/matrix1/Matrix01Page.js";
+import Matrix02Page from "./components/matrix/matrix2/Matrix02Page.js";
+import Matrix03Page from "./components/matrix/matrix3/Matrix03Page.js";
+import MatrixResult from "./components/matrix/result/MatrixResult.js";
 import api from "./lib/api";
-
-// function MatrixPage() {
-//   return (
-//     <div className="p-8">
-//       <h2 className="text-2xl font-bold mb-4">Matrix Page</h2>
-//       <p>Matrix 기능 또는 데이터 표시 페이지입니다.</p>
-//     </div>
-//   );
-// }
 
 function MypagePage() {
   return (
@@ -28,6 +22,7 @@ function MypagePage() {
 
 function App() {
   const navigate = useNavigate();
+  const location = useLocation(); // 현재 경로를 가져오기
   const storedDarkMode = localStorage.getItem("darkMode");
   const initialDarkMode = storedDarkMode === "true";
   const [isDarkMode, setIsDarkMode] = useState(initialDarkMode);
@@ -39,12 +34,11 @@ function App() {
   }, [isDarkMode]);
 
   useEffect(() => {
-    // 초기 렌더링 시 세션 유효성 확인
     const checkLoginStatus = async () => {
       try {
         const response = await api.get("/auth/logged-check");
         setIsLoggedIn(true);
-        setUserEmail(response.data?.data || ""); // 사용자 이메일 저장
+        setUserEmail(response.data?.data || "");
       } catch (error) {
         console.error("로그인 상태 확인 실패:", error);
         setIsLoggedIn(false);
@@ -63,7 +57,6 @@ function App() {
       await api.delete("/auth/logout");
       setIsLoggedIn(false);
       setUserEmail("");
-      // alert("Logged out successfully!");
       navigate("/");
     } catch (error) {
       alert("Failed to log out!");
@@ -75,7 +68,6 @@ function App() {
       <div className="min-h-screen bg-white dark:bg-black text-black dark:text-white flex flex-col">
         <header className="sticky top-0 z-50 border-b border-gray-300 dark:border-gray-600 bg-white dark:bg-black">
           <nav className="flex items-center justify-between px-8 py-2">
-            {/* 로고 및 탭 */}
             <div className="flex items-center space-x-8">
               <Link to="/">
                 <img
@@ -84,27 +76,27 @@ function App() {
                   className="h-12"
                 />
               </Link>
-              <Link
-                to="/introduce"
-                className="hover:text-gray-500 dark:hover:text-gray-300 font-normal text-sm px-3 py-1"
-              >
-                Introduce
-              </Link>
-              <Link
-                to="/matrix-01"
-                className="hover:text-gray-500 dark:hover:text-gray-300 font-normal text-sm px-3 py-1"
-              >
-                Matrix01
-              </Link>
-              <Link
-                to="/mypage"
-                className="hover:text-gray-500 dark:hover:text-gray-300 font-normal text-sm px-3 py-1"
-              >
-                Mypage
-              </Link>
+              {[
+                { path: "/introduce", label: "Introduce" },
+                { path: "/matrix-01", label: "Matrix01" },
+                { path: "/matrix-02", label: "Matrix02" },
+                { path: "/matrix-03", label: "Matrix03" },
+                { path: "/matrix-result", label: "MatrixResult" },
+                { path: "/mypage", label: "Mypage" },
+              ].map(({ path, label }) => (
+                <Link
+                  key={path}
+                  to={path}
+                  className={`font-normal text-sm px-3 py-1 ${
+                    location.pathname === path
+                      ? "text-blue-500 dark:text-blue-300"
+                      : "text-gray-700 dark:text-gray-400 hover:text-gray-500 dark:hover:text-gray-300"
+                  }`}
+                >
+                  {label}
+                </Link>
+              ))}
             </div>
-
-            {/* 로그인, 회원가입, 다크 모드 토글 */}
             <div className="flex items-center space-x-4">
               {isLoggedIn ? (
                 <>
@@ -132,7 +124,6 @@ function App() {
                   </Link>
                 </>
               )}
-
               <button
                 onClick={toggleDarkMode}
                 className="flex items-center px-3 py-2 rounded bg-white dark:bg-black text-black dark:text-white hover:bg-gray-200 dark:hover:bg-gray-800"
@@ -154,6 +145,9 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/introduce" element={<IntroducePage />} />
           <Route path="/matrix-01" element={<Matrix01Page />} />
+          <Route path="/matrix-02" element={<Matrix02Page />} />
+          <Route path="/matrix-03" element={<Matrix03Page />} />
+          <Route path="/matrix-result" element={<MatrixResult />} />
           <Route
             path="/mypage"
             element={<MypagePage />}
