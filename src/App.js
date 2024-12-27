@@ -3,7 +3,7 @@ import { Link, Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
 import SignUp from "./components/auth/signup.js";
 import Login from "./components/auth/login.js";
-import api from "./lib/api"; // axios instance를 import
+import api from "./lib/api";
 
 function HomePage() {
   return (
@@ -53,6 +53,22 @@ function App() {
     localStorage.setItem("darkMode", isDarkMode.toString());
   }, [isDarkMode]);
 
+  useEffect(() => {
+    // 초기 렌더링 시 세션 유효성 확인
+    const checkLoginStatus = async () => {
+      try {
+        const response = await api.get("/auth/logged-check");
+        setIsLoggedIn(true);
+        setUserEmail(response.data?.data || ""); // 사용자 이메일 저장
+      } catch (error) {
+        console.error("로그인 상태 확인 실패:", error);
+        setIsLoggedIn(false);
+        setUserEmail("");
+      }
+    };
+    checkLoginStatus();
+  }, []);
+
   const toggleDarkMode = () => {
     setIsDarkMode((prev) => !prev);
   };
@@ -62,10 +78,10 @@ function App() {
       await api.delete("/auth/logout");
       setIsLoggedIn(false);
       setUserEmail("");
-      alert("로그아웃 성공!");
+      // alert("Logged out successfully!");
       navigate("/");
     } catch (error) {
-      alert("로그아웃 실패!");
+      alert("Failed to log out!");
     }
   };
 

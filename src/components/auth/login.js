@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import api from "../../lib/api";
 
-function Login() {
+function Login({ onLogin }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
@@ -13,17 +13,16 @@ function Login() {
     e.preventDefault();
     setErrorMessage(""); // 이전 에러 메시지 초기화
     try {
-      await api.post("/auth/login", { email, password });
-      // alert(`Login successful`);
-      navigate("/"); // 회원가입 성공 후 루트 경로로 이동
-
+      const response = await api.post("/auth/login", { email, password });
+      onLogin(response.data.email); // 사용자 이메일을 부모 컴포넌트로 전달해 상태 업데이트
+      navigate("/");
     } catch (error) {
       // 서버로부터 받은 에러 메시지 표시
       const message = error.response?.data?.message || "로그인에 실패했습니다.";
       setErrorMessage(message);
     }
   };
-
+  
   return (
     <div className="flex justify-center items-center h-[calc(100vh-70px)] bg-white dark:bg-black text-black dark:text-white px-4 mt-[-30px]">
       <div className="w-full max-w-lg bg-white dark:bg-black py-4 px-6 rounded-lg shadow-lg border border-gray-200 dark:border-gray-700">
