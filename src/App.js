@@ -1,27 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link, Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
-import SignUp from "./components/auth/signup.js";
-import Login from "./components/auth/login.js";
+import SignUp from "./components/auth/Signup.js";
+import Login from "./components/auth/Login.js";
+import HomePage from "./components/introduce/HomePage.js";
+import IntroducePage from "./components/introduce/IntroducePage";
 import api from "./lib/api";
-
-function HomePage() {
-  return (
-    <div className="p-8">
-      <h2 className="text-2xl font-bold mb-4">Home Page</h2>
-      <p>메인 페이지의 내용이 들어갑니다.</p>
-    </div>
-  );
-}
-
-function IntroducePage() {
-  return (
-    <div className="p-8">
-      <h2 className="text-2xl font-bold mb-4">Introduce Page</h2>
-      <p>회사/서비스 소개 페이지입니다.</p>
-    </div>
-  );
-}
 
 function MatrixPage() {
   return (
