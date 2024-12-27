@@ -5,16 +5,17 @@ import SignUp from "./components/auth/Signup.js";
 import Login from "./components/auth/Login.js";
 import HomePage from "./components/introduce/HomePage.js";
 import IntroducePage from "./components/introduce/IntroducePage";
+import Matrix01Page from "./components/matrix/matrix1/Matrix01Page.js";
 import api from "./lib/api";
 
-function MatrixPage() {
-  return (
-    <div className="p-8">
-      <h2 className="text-2xl font-bold mb-4">Matrix Page</h2>
-      <p>Matrix 기능 또는 데이터 표시 페이지입니다.</p>
-    </div>
-  );
-}
+// function MatrixPage() {
+//   return (
+//     <div className="p-8">
+//       <h2 className="text-2xl font-bold mb-4">Matrix Page</h2>
+//       <p>Matrix 기능 또는 데이터 표시 페이지입니다.</p>
+//     </div>
+//   );
+// }
 
 function MypagePage() {
   return (
@@ -90,10 +91,10 @@ function App() {
                 Introduce
               </Link>
               <Link
-                to="/matrix"
+                to="/matrix-01"
                 className="hover:text-gray-500 dark:hover:text-gray-300 font-normal text-sm px-3 py-1"
               >
-                Matrix
+                Matrix01
               </Link>
               <Link
                 to="/mypage"
@@ -152,7 +153,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/introduce" element={<IntroducePage />} />
-          <Route path="/matrix" element={<MatrixPage />} />
+          <Route path="/matrix-01" element={<Matrix01Page />} />
           <Route
             path="/mypage"
             element={<MypagePage />}
