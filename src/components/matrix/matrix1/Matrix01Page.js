@@ -6,15 +6,15 @@ const Matrix01Page = () => {
   const [selectedStock, setSelectedStock] = useState(null);
 
   const allStocks = [
-    { name: "AAPL", category: "Technology", value1: 1, weight1: 1, weight2: 1 },
-    { name: "GOOGL", category: "Technology", value1: 1, weight1: 1, weight2: 1 },
-    { name: "MSFT", category: "Technology", value1: 1, weight1: 1, weight2: 1 },
-    { name: "JNJ", category: "Healthcare", value1: 1, weight1: 1, weight2: 1 },
-    { name: "PFE", category: "Healthcare", value1: 1, weight1: 1, weight2: 1 },
-    { name: "V", category: "Finance", value1: 1, weight1: 1, weight2: 1 },
-    { name: "JPM", category: "Finance", value1: 1, weight1: 1, weight2: 1 },
-    { name: "XOM", category: "Energy", value1: 1, weight1: 1, weight2: 1 },
-    { name: "TSLA", category: "Automotive", value1: 1, weight1: 1, weight2: 1 },
+    { name: "AAPL", category: "Technology", value1: 1, weight1: 0, weight2: 0 },
+    { name: "GOOGL", category: "Technology", value1: 1, weight1: 0, weight2: 0 },
+    { name: "MSFT", category: "Technology", value1: 1, weight1: 0, weight2: 0 },
+    { name: "JNJ", category: "Healthcare", value1: 1, weight1: 0, weight2: 0 },
+    { name: "PFE", category: "Healthcare", value1: 1, weight1: 0, weight2: 0 },
+    { name: "V", category: "Finance", value1: 1, weight1: 0, weight2: 0 },
+    { name: "JPM", category: "Finance", value1: 1, weight1: 0, weight2: 0 },
+    { name: "XOM", category: "Energy", value1: 1, weight1: 0, weight2: 0 },
+    { name: "TSLA", category: "Automotive", value1: 1, weight1: 0, weight2: 0 },
   ];
 
   const [stocks, setStocks] = useState(allStocks);
