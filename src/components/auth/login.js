@@ -1,13 +1,27 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import api from "../../lib/api";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
 
-  const handleSubmit = (e) => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // 로그인 처리 로직 추가
-    alert(`로그인 시도: \n이메일: ${email} \n비밀번호: ${password}`);
+    setErrorMessage(""); // 이전 에러 메시지 초기화
+    try {
+      await api.post("/auth/login", { email, password });
+      // alert(`Login successful`);
+      navigate("/"); // 회원가입 성공 후 루트 경로로 이동
+
+    } catch (error) {
+      // 서버로부터 받은 에러 메시지 표시
+      const message = error.response?.data?.message || "로그인에 실패했습니다.";
+      setErrorMessage(message);
+    }
   };
 
   return (
@@ -56,6 +70,11 @@ function Login() {
               placeholder="Enter your password"
             />
           </div>
+
+          {/* 에러 메시지 */}
+          {errorMessage && (
+            <p className="text-sm text-red-500 mt-2">{errorMessage}</p>
+          )}
 
           {/* 로그인 버튼 */}
           <div>

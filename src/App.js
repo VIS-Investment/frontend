@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { Link, Routes, Route } from "react-router-dom";
+import { Link, Routes, Route, useNavigate } from "react-router-dom";
 import "./App.css";
 import SignUp from "./components/auth/signup.js";
 import Login from "./components/auth/login.js";
-
+import api from "./lib/api"; // axios instance를 import
 
 function HomePage() {
   return (
@@ -42,9 +42,12 @@ function MypagePage() {
 }
 
 function App() {
+  const navigate = useNavigate();
   const storedDarkMode = localStorage.getItem("darkMode");
   const initialDarkMode = storedDarkMode === "true";
   const [isDarkMode, setIsDarkMode] = useState(initialDarkMode);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [userEmail, setUserEmail] = useState("");
 
   useEffect(() => {
     localStorage.setItem("darkMode", isDarkMode.toString());
@@ -52,6 +55,18 @@ function App() {
 
   const toggleDarkMode = () => {
     setIsDarkMode((prev) => !prev);
+  };
+
+  const handleLogout = async () => {
+    try {
+      await api.delete("/auth/logout");
+      setIsLoggedIn(false);
+      setUserEmail("");
+      alert("로그아웃 성공!");
+      navigate("/");
+    } catch (error) {
+      alert("로그아웃 실패!");
+    }
   };
 
   return (
@@ -71,37 +86,51 @@ function App() {
               <Link
                 to="/introduce"
                 className="hover:text-gray-500 dark:hover:text-gray-300 font-normal text-sm px-3 py-1"
-                >
+              >
                 Introduce
               </Link>
               <Link
                 to="/matrix"
                 className="hover:text-gray-500 dark:hover:text-gray-300 font-normal text-sm px-3 py-1"
-                >
+              >
                 Matrix
               </Link>
               <Link
                 to="/mypage"
                 className="hover:text-gray-500 dark:hover:text-gray-300 font-normal text-sm px-3 py-1"
-                >
+              >
                 Mypage
               </Link>
             </div>
 
             {/* 로그인, 회원가입, 다크 모드 토글 */}
             <div className="flex items-center space-x-4">
-              <Link
-                to="/login"
-                  className="bg-transparent border border-gray-500 hover:bg-gray-200 dark:hover:bg-gray-800 text-sm px-3 py-1 rounded"
-              >
-                Log in
-              </Link>
-              <Link
-                to="/signup"
-                  className="bg-transparent border border-gray-500 hover:bg-gray-200 dark:hover:bg-gray-800 text-sm px-3 py-1 rounded"
-              >
-                Sign up
-              </Link>
+              {isLoggedIn ? (
+                <>
+                  <span className="text-sm">{userEmail}</span>
+                  <button
+                    onClick={handleLogout}
+                    className="bg-transparent border border-gray-500 hover:bg-gray-200 dark:hover:bg-gray-800 text-sm px-3 py-1 rounded"
+                  >
+                    Log out
+                  </button>
+                </>
+              ) : (
+                <>
+                  <Link
+                    to="/login"
+                    className="bg-transparent border border-gray-500 hover:bg-gray-200 dark:hover:bg-gray-800 text-sm px-3 py-1 rounded"
+                  >
+                    Log in
+                  </Link>
+                  <Link
+                    to="/signup"
+                    className="bg-transparent border border-gray-500 hover:bg-gray-200 dark:hover:bg-gray-800 text-sm px-3 py-1 rounded"
+                  >
+                    Sign up
+                  </Link>
+                </>
+              )}
 
               <button
                 onClick={toggleDarkMode}
@@ -124,16 +153,32 @@ function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/introduce" element={<IntroducePage />} />
           <Route path="/matrix" element={<MatrixPage />} />
-          <Route path="/mypage" element={<MypagePage />} />
-          <Route path="/signup" element={<SignUp />} />
-          <Route path="/login" element={<Login />} /> 
+          <Route
+            path="/mypage"
+            element={<MypagePage />}
+          />
+          <Route
+            path="/signup"
+            element={<SignUp onRegister={() => navigate("/login")} />}
+          />
+          <Route
+            path="/login"
+            element={
+              <Login
+                onLogin={(email) => {
+                  setIsLoggedIn(true);
+                  setUserEmail(email);
+                  navigate("/");
+                }}
+              />
+            }
+          />
         </Routes>
         <footer className="p-2 border-t border-gray-300 dark:border-gray-600 text-center text-xs mt-auto">
-        © 2024 VIS Investment. All rights reserved.
+          © 2024 VIS Investment. All rights reserved.
         </footer>
       </div>
     </div>
-
   );
 }
 
