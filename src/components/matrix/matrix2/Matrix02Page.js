@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import CandleChart from "../CandleChart";
+import FilterBar from "../FilterBar";
 
 const Matrix02Page = () => {
   const [filters, setFilters] = useState([]);
@@ -54,27 +55,12 @@ const Matrix02Page = () => {
       <h1 className="text-2xl font-bold text-center">Matrix Page</h1>
 
       {/* 필터바 */}
-      <div className="flex flex-wrap items-center gap-4 mb-4">
-        {availableFilters.map((filter) => (
-          <button
-            key={filter}
-            onClick={() => toggleFilter(filter)}
-            className={`px-4 py-2 rounded ${
-              filters.includes(filter)
-                ? "bg-blue-600 text-white"
-                : "bg-gray-200 dark:bg-gray-800 text-black dark:text-white"
-            }`}
-          >
-            {filter}
-          </button>
-        ))}
-        <button
-          onClick={applyFilters}
-          className="px-4 py-2 bg-green-500 text-white rounded"
-        >
-          Apply Filters
-        </button>
-      </div>
+      <FilterBar
+        availableFilters={availableFilters}
+        filters={filters}
+        toggleFilter={toggleFilter}
+        applyFilters={applyFilters}
+      />
 
       {/* 종목 리스트와 가중치 계산 표 */}
       <div className="p-4 rounded shadow-md bg-white dark:bg-black">
