@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Link, Routes, Route, useNavigate, useLocation } from "react-router-dom";
-import "./App.css";
-import SignUp from "./components/auth/Signup.js";
-import Login from "./components/auth/Login.js";
-import HomePage from "./components/introduce/HomePage.js";
-import IntroducePage from "./components/introduce/IntroducePage";
-import Matrix01Page from "./components/matrix/matrix1/Matrix01Page.js";
-import Matrix02Page from "./components/matrix/matrix2/Matrix02Page.js";
-import Matrix03Page from "./components/matrix/matrix3/Matrix03Page.js";
-import MatrixResult from "./components/matrix/result/MatrixResult.js";
-import api from "./lib/api";
+import "App.css";
+import SignUp from "components/auth/Signup.js";
+import Login from "components/auth/Login.js";
+import HomePage from "components/introduce/HomePage.js";
+import IntroducePage from "components/introduce/IntroducePage";
+import Matrix01Page from "components/matrix/matrix1/Matrix01Page.js";
+import Matrix02Page from "components/matrix/matrix2/Matrix02Page.js";
+import Matrix03Page from "components/matrix/matrix3/Matrix03Page.js";
+import MatrixResult from "components/matrix/result/MatrixResult.js";
+import api from "lib/api";
 
 function MypagePage() {
   return (
